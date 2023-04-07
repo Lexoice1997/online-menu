@@ -17,7 +17,7 @@ function Foods() {
     dispatch(setFoods(data));
   }, [data, dispatch]);
 
-  if (!isLoading) {
+  if (isLoading) {
     return <FoodsSkeleton />;
   }
 
