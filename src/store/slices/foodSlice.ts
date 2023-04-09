@@ -4,12 +4,14 @@ import { Categories, Category } from '../../types/Category';
 import { Food } from '../../types/Food';
 
 interface FoodState {
+  data: Categories[];
   foods: Food[];
   categories: Category[];
   isLoading: boolean;
 }
 
 const initialState: FoodState = {
+  data: [],
   foods: [],
   categories: [{ id: '0', name: 'Все' }],
   isLoading: false,
@@ -28,7 +30,7 @@ export const searchFoods = createAsyncThunk('foods/searchFoods', async (name: st
 
 export const getAllFoods = createAsyncThunk('foods/getAllFoods', async (_, thunkAPI) => {
   try {
-    const response = await axios.get(`http://kvartirabar.uz/category`);
+    const response = await axios.get(`https://kvartirabar.uz/category`);
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue('Не удалось загрузить блюды');
@@ -43,7 +45,10 @@ export const foodSlice = createSlice({
       state.foods = action.payload;
     },
     setFoodsByCategoryId: (state, action: PayloadAction<string>) => {
-      state.foods = state.foods.filter((item) => item.id === action.payload);
+      state.data.forEach((item) =>
+        state.foods.push(...item.menu.filter((i) => i.id === action.payload))
+      );
+      // state.foods = state.data.filter((item) => item.id == action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -54,6 +59,7 @@ export const foodSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getAllFoods.fulfilled, (state, action: PayloadAction<Categories[]>) => {
+      state.data = action.payload;
       action.payload.forEach((item) => state.foods.push(...item.menu));
       action.payload.forEach((item) => state.categories.push(item));
       state.isLoading = false;

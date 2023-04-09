@@ -3,7 +3,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useAppSelector } from '../../helpers/hooks/redux';
-import { useGetAllCategoriesQuery } from '../../store/services/apiService';
 import { Category } from '../../types/Category';
 import CategoriesItem from '../CategoriesItem/CategoriesItem';
 import './Categories.css';

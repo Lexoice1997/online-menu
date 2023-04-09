@@ -8,8 +8,10 @@ function CategoriesItem({ id, name, categoryActiveId }: Category) {
 
   const handleSetCategoryId = () => {
     if (id === '0') {
+      console.log(id);
       dispatch(getAllFoods());
     } else {
+      console.log(id);
       dispatch(setFoodsByCategoryId(id));
     }
     dispatch(setCategoryId(id));
