@@ -5,7 +5,7 @@ import { Food } from '../../types/Food';
 
 interface FoodState {
   data: Categories[];
-  foods: Food[];
+  foods: any;
   categories: Category[];
   isLoading: boolean;
 }
@@ -41,32 +41,31 @@ export const foodSlice = createSlice({
   name: 'food',
   initialState,
   reducers: {
-    setFoods: (state, action: PayloadAction<any>) => {
-      state.foods = action.payload;
-    },
-    setFoodsByCategoryId: (state, action: PayloadAction<string>) => {
-      state.data.forEach((item) =>
-        state.foods.push(...item.menu.filter((i) => i.id === action.payload))
-      );
-      // state.foods = state.data.filter((item) => item.id == action.payload);
+    setFoods: (state, action: PayloadAction<Categories[] | Categories>) => {
+      state.foods = [];
+      if (Array.isArray(action.payload)) {
+        action.payload.map((item) => state.foods.push(...item.menu));
+      } else {
+        state.foods = [...action.payload.menu];
+      }
     },
   },
   extraReducers: (builder) => {
     builder.addCase(searchFoods.fulfilled, (state, action: PayloadAction<any>) => {
       state.foods = action.payload;
     });
-    builder.addCase(getAllFoods.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getAllFoods.fulfilled, (state, action: PayloadAction<Categories[]>) => {
-      state.data = action.payload;
-      action.payload.forEach((item) => state.foods.push(...item.menu));
-      action.payload.forEach((item) => state.categories.push(item));
-      state.isLoading = false;
-    });
+    // builder.addCase(getAllFoods.pending, (state) => {
+    //   state.isLoading = true;
+    // });
+    // builder.addCase(getAllFoods.fulfilled, (state, action: PayloadAction<Categories[]>) => {
+    //   state.data = action.payload;
+    //   action.payload.forEach((item) => state.foods.push(...item.menu));
+    //   action.payload.forEach((item) => state.categories.push(item));
+    //   state.isLoading = false;
+    // });
   },
 });
 
-export const { setFoods, setFoodsByCategoryId } = foodSlice.actions;
+export const { setFoods } = foodSlice.actions;
 
 export default foodSlice.reducer;

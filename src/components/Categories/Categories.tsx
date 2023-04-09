@@ -2,15 +2,14 @@ import { useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useAppSelector } from '../../helpers/hooks/redux';
+import { useGetAllCategoriesQuery } from '../../store/services/apiService';
 import { Category } from '../../types/Category';
 import CategoriesItem from '../CategoriesItem/CategoriesItem';
 import './Categories.css';
 import CategoriesSkeleton from './CategpriesSkeleton';
 
 function Categories() {
-  const { foods, categories, isLoading } = useAppSelector((state) => state.food);
-  // const { data: categories, isLoading } = useGetAllCategoriesQuery(null);
+  const { data: categories, isLoading } = useGetAllCategoriesQuery(null);
 
   const [categoryActiveId, setCategoryActiveId] = useState<string>('0');
 

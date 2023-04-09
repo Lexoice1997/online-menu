@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../helpers/hooks/redux';
-import { getAllFoods } from '../../store/slices/foodSlice';
+import { useGetFoodsByCategoryIdQuery } from '../../store/services/apiService';
+import { setFoods } from '../../store/slices/foodSlice';
 import { Food } from '../../types/Food';
 import FoodsItem from '../FoodsItem/FoodsItem';
 import './Foods.css';
@@ -9,13 +10,16 @@ import FoodsSkeleton from './FoodsSkeleton';
 function Foods() {
   const dispatch = useAppDispatch();
   const { categoryId, categoryName } = useAppSelector((state) => state.category);
-  const { foods, isLoading } = useAppSelector((state) => state.food);
-  // const { data, isLoading } = useGetFoodsByCategoryIdQuery(categoryId);
+  const { foods } = useAppSelector((state) => state.food);
+  const { data, isLoading } = useGetFoodsByCategoryIdQuery(categoryId);
 
   useEffect(() => {
-    // dispatch(setFoods(data));
-    dispatch(getAllFoods());
-  }, [dispatch]);
+    if (data) {
+      dispatch(setFoods(data));
+    }
+  }, [data, dispatch]);
+
+  console.log(foods);
 
   if (isLoading) {
     return <FoodsSkeleton />;
