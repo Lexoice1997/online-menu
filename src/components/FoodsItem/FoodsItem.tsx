@@ -4,19 +4,19 @@ import { splitNum } from '../../helpers/utils/splitNum';
 import { Food } from '../../types/Food';
 import './FoodsItem.css';
 
-function FoodsItem({ name, description, price, image, admin }: Food) {
+function FoodsItem({ name, description, price, avatar, admin }: Food) {
   return (
     <div className="food">
       <LazyLoadImage
         alt={name}
-        src={image}
+        src={avatar}
         effect="blur"
         className="food-img"
         width="100%"
         height={130}
       />
       {/* <img src={image} className="food-img" alt={name} /> */}
-      <div className={admin ? 'food-info-admin' : 'food-info'}>
+      <div className="food-info">
         <div>
           <h2 className="food-name">{name}</h2>
           <p className="food-description">{description}</p>

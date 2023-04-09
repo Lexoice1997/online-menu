@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../helpers/hooks/redux';
-import { useGetFoodsByCategoryIdQuery } from '../../store/services/apiService';
-import { setFoods } from '../../store/slices/foodSlice';
+import { getAllFoods } from '../../store/slices/foodSlice';
 import { Food } from '../../types/Food';
 import FoodsItem from '../FoodsItem/FoodsItem';
 import './Foods.css';
@@ -10,12 +9,13 @@ import FoodsSkeleton from './FoodsSkeleton';
 function Foods() {
   const dispatch = useAppDispatch();
   const { categoryId, categoryName } = useAppSelector((state) => state.category);
-  const { foods } = useAppSelector((state) => state.food);
-  const { data, isLoading } = useGetFoodsByCategoryIdQuery(categoryId);
+  const { foods, isLoading } = useAppSelector((state) => state.food);
+  // const { data, isLoading } = useGetFoodsByCategoryIdQuery(categoryId);
 
   useEffect(() => {
-    dispatch(setFoods(data));
-  }, [data, dispatch]);
+    // dispatch(setFoods(data));
+    dispatch(getAllFoods());
+  }, [dispatch]);
 
   if (isLoading) {
     return <FoodsSkeleton />;
@@ -31,9 +31,9 @@ function Foods() {
             id={item.id}
             name={item.name}
             description={item.description}
-            categoryId={categoryId}
+            categoryId={item.id}
             price={item.price}
-            image={item.image}
+            avatar={item.avatar}
             admin={false}
           />
         ))}
