@@ -19,6 +19,8 @@ function Foods() {
     }
   }, [data, dispatch]);
 
+  console.log('asd');
+
   if (isLoading) {
     return <FoodsSkeleton />;
   }
