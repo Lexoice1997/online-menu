@@ -12,7 +12,7 @@ export const apiService = createApi({
     }),
     getFoodsByCategoryId: builder.query<Categories[], string>({
       query: (categoryId) => ({
-        url: `/category/${categoryId}`,
+        url: `/category/${categoryId === '0' ? '' : categoryId}`,
         method: 'GET',
       }),
       providesTags: ['Categories'],

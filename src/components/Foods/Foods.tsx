@@ -19,8 +19,6 @@ function Foods() {
     }
   }, [data, dispatch]);
 
-  console.log(foods);
-
   if (isLoading) {
     return <FoodsSkeleton />;
   }

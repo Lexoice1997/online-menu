@@ -17,6 +17,8 @@ function Categories() {
     setCategoryActiveId(id);
   };
 
+  console.log(categories);
+
   if (isLoading) {
     return <CategoriesSkeleton />;
   }
@@ -30,6 +32,9 @@ function Categories() {
       }}
       className="mySwiper categories"
     >
+      <SwiperSlide onClick={() => handleSetCategoryIdActive('0')}>
+        <CategoriesItem id="0" name="Все" categoryActiveId={categoryActiveId} />
+      </SwiperSlide>
       {categories?.map((item: Category) => (
         <SwiperSlide key={item.id} onClick={() => handleSetCategoryIdActive(item.id)}>
           <CategoriesItem id={item.id} name={item.name} categoryActiveId={categoryActiveId} />

@@ -19,9 +19,9 @@ const initialState: FoodState = {
 
 export const searchFoods = createAsyncThunk('foods/searchFoods', async (name: string, thunkAPI) => {
   try {
-    const response = await axios.get(`http://localhost:5000/foods/search`, {
-      params: { name },
-    });
+    const response = await axios.get(
+      `https://kvartirabar.uz/menu/${name.length ? name : ':search'}`
+    );
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue('Не удалось загрузить блюды');
