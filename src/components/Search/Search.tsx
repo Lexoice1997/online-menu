@@ -15,14 +15,15 @@ function Search() {
 
   useEffect(() => {
     dispatch(searchFoods(searchWord));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue, dispatch]);
 
   return (
     <div className="search">
       <div className="search-inner">
         <svg
-          width="20"
-          height="20"
+          width="25"
+          height="25"
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"

@@ -4,7 +4,7 @@ import { splitNum } from '../../helpers/utils/splitNum';
 import { Food } from '../../types/Food';
 import './FoodsItem.css';
 
-function FoodsItem({ name, description, price, avatar, admin }: Food) {
+function FoodsItem({ name, description, price, avatar }: Food) {
   return (
     <div className="food">
       <LazyLoadImage

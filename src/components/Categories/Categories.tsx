@@ -17,15 +17,13 @@ function Categories() {
     setCategoryActiveId(id);
   };
 
-  console.log(categories);
-
   if (isLoading) {
     return <CategoriesSkeleton />;
   }
 
   return (
     <Swiper
-      slidesPerView={3}
+      slidesPerView={2.75}
       spaceBetween={30}
       pagination={{
         clickable: true,
